@@ -1,233 +1,145 @@
+# Planora — مراجعة وخطة منصة تنظيم حياة الطلاب
 
+## النطاق وحماية الصفحة الحالية
+- هذه مراجعة وخطة فقط؛ لم تُعدّل صفحات الموقع ولم تُفعّل خدمات جديدة.
+- تبقى الصفحة الرئيسية `/` وصفحة الهوية `/brand` بتفاصيلهما الحالية: الشعار، الصور، الألوان، الخطوط، ترتيب الأقسام وعرض الأجهزة.
+- تُضاف منصة الطالب في مساحة منفصلة `/app`، بدل استبدال الصفحة الحالية. أي تغيير لنصوصها أو أزرارها يحتاج موافقة منفصلة.
+- يشمل المنتج الدراسة والحياة الشخصية لطلاب المدرسة والكلية والجامعة، وليس قائمة واجبات فقط.
 
-# Homepage & Store Restructure
+## 1. نتيجة مراجعة المشروع الفعلي
 
-This plan transforms the portfolio/inquiry-only website into a fully functional e-commerce store with cart, checkout, and proper product flow.
+| العنصر | الحالة المتحققة |
+|---|---|
+| الصفحة الرئيسية وصفحة الهوية | موجودتان وتعملان، مع صفحة للمسارات غير الموجودة |
+| الشعار وصور الهوية | تظهر سليمة على الموقع المنشور؛ فشل ظهورها محليًا لأن مسار الصور أعاد صفحة HTML، وليس لأن الملفات مفقودة على الموقع المنشور |
+| التصميم | هوية زرقاء واضحة، خلفية فاتحة، عناوين مستديرة، صور أصلية، حركات وبطاقات متسقة |
+| الهاتف | لا يوجد امتداد أفقي في الفحص بعرض 390؛ قائمة الهاتف تفتح. هذا ليس فحصًا شاملًا لكل المقاسات |
+| تبديل عرض الأجهزة | يعمل كتبديل بصري؛ ليس تطبيقًا فعليًا أو مزامنة بيانات |
+| واجهة الأجهزة والرسوم | أشكال توضيحية ثابتة، وليست لوحة طالب أو إحصاءات حقيقية |
+| روابط الصفحة الرئيسية والهوية | الانتقال إلى صفحة الهوية يعمل؛ روابط أقسام الرئيسية من داخل `/brand` لا تعيد المستخدم للرئيسية |
+| Get Started / Start Building | الأول يمرّر لقسم ختامي، والثاني يفتح البريد؛ لا يوجد تسجيل أو بدء خطة فعلية |
+| روابط التذييل والشبكات الاجتماعية | كثير منها `#` بلا وجهة فعلية |
+| أرقام المستخدمين والتقييم والتوفر | قيم مكتوبة يدويًا؛ لا مصدر بيانات موصول يثبتها |
+| التخطيط والتقويم والمهام والأهداف والعادات | غير منفذة |
+| الحسابات وحفظ بيانات كل طالب | غير منفذة؛ لا تكامل بيانات موصول حاليًا |
+| الاختبارات | الاختبار الوحيد ينجح لكنه يتحقق من `true` فقط؛ لا يثبت وظائف المنتج |
+| أخطاء التشغيل | لم تظهر أخطاء JavaScript في التنقل المحلي الذي جرى فحصه؛ لا تتوفر سجلات تثبت بناءً حديثًا شاملًا |
 
----
+**ما نحافظ عليه:** الشعار الهندسي، الصور، الأزرق والأبيض والكحلي، عناوين Nunito، أسلوب الخطوط والتباعد، مكونات الأزرار والنماذج والحوارات الموجودة. توجد فرص لتحسين لوحة المفاتيح، تسمية أزرار عرض الأجهزة على الهاتف، وتقليل الحركة؛ تُعالج داخل التطبيق الجديد دون إعادة تصميم الموقع كله.
 
-## Summary of Changes
+**تصحيح السياق القديم:** خطة المتجر والسلة القديمة لا تصف النسخة الحالية؛ المشروع الموجود الآن عرض SaaS وهوية، وليس متجرًا فعليًا.
 
-### Current State → New State
-- **Wishlist page** → Removed (keep wishlist functionality in header icon only)
-- **Inquiry-based flow** → Shopping cart + checkout flow
-- **Product detail "Inquire" button** → "Add to Bag" + quantity selector
-- **Homepage structure** → Reorganized to match reference layout
+## 2. تنظيم الصفحات والتنقل المقترح
 
----
+### الموقع العام — محفوظ
+- `/`: العرض الحالي.
+- `/brand`: دليل الهوية الحالي.
 
-## 1. Homepage Restructure
+### مساحة الطالب — جديدة
+- `/app`: اليوم؛ جدول اليوم، الأولويات، المواعيد المقبلة، الوقت المتاح والتقدم.
+- `/app/planner`: العام الدراسي، مع تبديل سنة / شهر / أسبوع / يوم داخل المكان نفسه.
+- `/app/tasks`: المهام والمشاريع، وفرز حسب المواد والأولوية والاستحقاق.
+- `/app/time`: الخط الزمني اليومي، الدراسة والأنشطة والاستراحات والوقت الحر.
+- `/app/goals`: الأهداف والعادات وسجل الإنجاز.
+- `/app/analytics`: ملخصات مبنية على البيانات المسجلة فقط.
+- `/app/settings`: الحساب، اللغة، المنطقة الزمنية، بداية الأسبوع، الإشعارات وإعدادات العرض.
+- صفحات مستقلة للدخول وبدء الاستخدام واستعادة كلمة المرور عند اعتماد الحسابات.
 
-Reorganize sections to follow this exact order:
+على الكمبيوتر: قائمة جانبية ثابتة وأوامر إضافة موحدة. على الهاتف: اليوم، المخطط، المهام، والمزيد؛ دون حشر جميع الوحدات في شريط صغير. المواد والسنة الدراسية ضمن الإعداد الدراسي، وليستا تقويمين منفصلين.
 
-| Section | Description |
-|---------|-------------|
-| Hero Banner | Keep existing lifestyle hero |
-| Featured Collection(s) | 1-2 highlighted collections with editorial imagery |
-| Latest Products | Grid of newest arrivals |
-| Collections | Grid/list of all collection categories |
-| About Us | Brand philosophy snippet with link |
-| Follow Us | Social media / Instagram feed placeholder |
+## 3. خطة التنفيذ ذات الأولوية
 
-### Remove from Homepage
-- Philosophy statement section (move essence to About Us section)
-- Marquee text banner
-- Full-width lifestyle banner mid-page
-- Newsletter section (move to footer only)
+### المرحلة 1 — الأساس ولوحة اليوم والتنقل
+- **الصفحات:** الدخول، بدء الاستخدام، اليوم، الإعدادات الأساسية؛ الموقع العام لا يتغير.
+- **الأجزاء:** تنقل الطالب، رأس الصفحة، اختيار السنة، إضافة سريعة، حالات فارغة وتحميل وخطأ.
+- **البيانات:** الملف الشخصي، التفضيلات، السنة الدراسية، الفصول والمواد، ثم أقل حقول المهام والمواعيد اللازمة لأول خطة.
+- **الترتيب:** اعتماد القرارات → تفعيل حفظ آمن والحسابات بموافقة → عزل بيانات الطلاب → بدء الاستخدام → لوحة اليوم.
+- **التبعيات:** مكونات المشروع الحالية + Lovable Cloud بعد الموافقة؛ لا خدمات مدفوعة إضافية.
+- **معيار القبول:** طالب ينشئ أول خطة، يعيد فتحها ويجدها محفوظة؛ طالب آخر لا يستطيع قراءتها. اللوحة الفارغة لا تعرض أرقامًا وهمية.
+- **المخاطر:** خصوصية القاصرين، تأكيد البريد، حدود النسخة الأولى؛ تؤخر التجربة الحقيقية إن لم تُحسم.
 
----
+### المرحلة 2 — المخطط السنوي والشهري والأسبوعي واليومي
+- **الصفحات:** المخطط؛ كل العروض تستخدم المصدر نفسه.
+- **الأجزاء:** تنقل التاريخ، ملخص السنة، حوار الموعد، تكرار الموعد واستثناءاته، اختيار المادة والعطلات.
+- **البيانات:** المواعيد، العطلات، المراحل المهمة، قواعد التكرار والاستثناءات.
+- **الترتيب:** توحيد التاريخ والمنطقة الزمنية → إنشاء وتعديل وحذف → ربط العروض → التكرار.
+- **التبعيات:** مكتبة تقويم React مجرّبة بعروض الشهر والأسبوع واليوم؛ عرض السنة مكمّل، ومكتبة RRULE للتكرار، دون ترخيص تقويم مدفوع.
+- **معيار القبول:** موعد واحد يظهر صحيحًا في العروض الأربعة؛ التكرار والتعديل لموعد واحد أو للسلسلة يعملان؛ حذف مؤكد؛ اختبارات انتقال الشهر والتوقيت الصيفي.
+- **المخاطر:** أيام كاملة مقابل ساعات محددة، التوقيت الصيفي، سلاسل طويلة؛ لا نولّد تكرارًا بلا حد.
 
-## 2. Collection/Products Page Updates
+### المرحلة 3 — المهام والمشاريع وإدارة الوقت
+- **الصفحات:** المهام، تفاصيل المشروع، الخط الزمني.
+- **الأجزاء:** نموذج المهمة، مهام فرعية، فلاتر، كتل زمنية، تنبيه التعارض وإعادة جدولة مقترحة.
+- **البيانات:** مشاريع، مهام، مهام فرعية، كتل وقت، ساعات التوفر، جلسات عمل.
+- **الترتيب:** المهام والمشاريع → توزيع الوقت → كشف التعارض → اقتراح نقل الأعمال المتأخرة بموافقة الطالب.
+- **التبعيات:** النماذج والتحقق الحالية + منطق فترات زمنية مختبر؛ لا حاجة للذكاء الاصطناعي.
+- **معيار القبول:** تستمر المهمة بعد إعادة الفتح؛ يظهر تعارض الفترات المتداخلة؛ الوقت الحر لا يحتسب مرتين؛ لا تُحرّك الحصص والمواعيد الثابتة تلقائيًا.
+- **المخاطر:** مبالغة تقدير ساعات الدراسة، مهام بلا مدة، تضارب تعديلات متزامنة.
 
-### Add Filters
-- Collection filter (already exists)
-- Price range filter (Low to High, High to Low)
-- Material type filter
-- "New Arrivals" and "Featured" quick filters
+### المرحلة 4 — الأهداف والعادات والتحليلات والتذكيرات
+- **الصفحات:** الأهداف والعادات، التحليلات، إعدادات الإشعارات.
+- **الأجزاء:** أهداف أسبوعية وشهرية وسنوية، تسجيل عادة، تقدم وتاريخ، ملخص أسبوعي، مركز تذكيرات.
+- **البيانات:** الأهداف، العادات، تسجيلاتها، جلسات العمل والتذكيرات.
+- **الترتيب:** التسجيل الحقيقي → احتساب النتائج → ملخصات → تذكيرات داخل التطبيق؛ البريد والتنبيهات الخارجية قرار مستقل.
+- **التبعيات:** Recharts الموجودة؛ جدولة إرسال موثوقة عند اعتماد التنبيهات خارج التطبيق.
+- **معيار القبول:** النسب تطابق سجلات الطالب؛ الوقت المنفذ يأتي من جلسات العمل لا من مدة مخططة؛ حالات بلا بيانات واضحة؛ لا يتكرر إرسال التذكير.
+- **المخاطر:** تكرار تسجيل عادة، إرهاق الإشعارات، اختلاف صلاحيات التنبيه بين الأجهزة.
 
-### Add Sorting
-- Dropdown with options:
-  - Featured (default)
-  - Newest
-  - Price: Low to High
-  - Price: High to Low
-  - Alphabetical A-Z
+### المرحلة 5 — مساعد التخطيط الاختياري
+- **الصفحات:** مساعد ضمن المخطط وليس بديلًا عنه.
+- **الأجزاء:** اقتراح خطة، مقارنة قبل/بعد، قبول أو رفض وتراجع.
+- **البيانات:** اقتراحات وسجل تطبيقها بأقل قدر من بيانات الطالب.
+- **الترتيب:** إثبات صحة الجدولة → اعتماد الخصوصية والتكلفة → اقتراحات قابلة للتحقق → تطبيق بعد التأكيد.
+- **التبعيات:** Lovable AI بعد الموافقة على الاستخدام والتكلفة؛ لا مفاتيح خاصة في المتصفح.
+- **معيار القبول:** لا تعديل صامت؛ كل اقتراح يمر بقواعد الوقت والتعارض؛ فشل المساعد لا يعطل المخطط.
+- **المخاطر:** اقتراحات غير واقعية، إرسال بيانات حساسة، تكلفة الاستخدام.
 
-### Product Grid
-- Keep existing editorial-style grid
-- Ensure all cards show mock data
-- Only the first product links to real detail page (others link to same product for demo purposes)
+### المرحلة 6 — التثبيت والاستعداد للموبايل
+- **الصفحات:** نفس التطبيق؛ تجربة التثبيت وحالات عدم الاتصال.
+- **الأجزاء:** تعريف التطبيق وأيقوناته، تحديث آمن، تخزين مؤقت محدود.
+- **البيانات:** سياسة مزامنة وتعارض، دون إنشاء نسخة عامة من بيانات خاصة.
+- **الترتيب:** تحسين الأداء واللمس → التثبيت → عرض آمن دون اتصال → تحرير دون اتصال فقط بعد تصميم المزامنة.
+- **التبعيات:** إضافة PWA مناسبة لـ Vite، دون إعادة كتابة التطبيق.
+- **معيار القبول:** تثبيت وفتح ناجحان، تحديث لا يمحو العمل، تسجيل الخروج يزيل التخزين الخاص، اختبار الهاتف واللوحي والكمبيوتر.
+- **المخاطر:** اختلاف دعم المتصفحات، بيانات جهاز مشترك، تعارض العمل دون اتصال.
 
----
+## 4. التفاصيل التقنية ونموذج البيانات
 
-## 3. Product Detail Page Updates
+### أقل تغيير ممكن للبنية الحالية
+- الاحتفاظ بـ React 18 وTypeScript وVite 5 وTailwind 3 وReact Router.
+- إعادة استخدام shadcn/Radix، React Hook Form، Zod، date-fns وRecharts الموجودة.
+- React Query لتحميل البيانات وتحديثها؛ الحالة المحلية للواجهة فقط، وليست بديلًا للحفظ الآمن.
+- فصل مساحة الطالب عن Layout العام؛ لا تذييل تسويقي داخل كل شاشة عمل.
+- اقتراح Lovable Cloud لأنه لا توجد قاعدة حالية لاستبدالها، ولأن الحسابات وحفظ بيانات الطالب عبر الأجهزة يحتاجان خدمة آمنة. يُفعّل فقط بعد الموافقة، وقد تكون له تكلفة حسب الاستخدام.
 
-### Current → New Layout
-| Element | Change |
-|---------|--------|
-| Images | Keep existing gallery |
-| Title, Description, Price | Keep |
-| "Inquire About This Piece" | → "Add to Bag" primary CTA |
-| Wishlist button | Keep as secondary action |
-| **New: Quantity Selector** | Add increment/decrement control |
-| Related Products | Keep existing |
+### النموذج المقترح
+كل سجل خاص يحمل `user_id`؛ العلاقات تتحقق من ملكية طرفيها. صلاحيات القراءة والإنشاء والتعديل والحذف مقيدة بالمالك؛ لا وصول عام لبيانات الطلاب.
 
-### New Elements to Add
-- Quantity selector (1-10, with +/- buttons)
-- "Add to Bag" button replaces inquiry button
-- Toast notification on add to cart
+| الكيان | الحقول الأساسية |
+|---|---|
+| profiles / preferences | اسم عرض اختياري، مرحلة دراسية اختيارية، لغة، منطقة IANA الزمنية، بداية الأسبوع، إعدادات الوصول والإشعار |
+| academic_years / terms | اسم، بداية ونهاية، سنة نشطة، فصول دراسية |
+| subjects | اسم، سنة دراسية، لون دلالي اختياري |
+| projects | عنوان، وصف، مادة اختيارية، استحقاق، حالة |
+| tasks / subtasks | عنوان، وصف، فئة، أولوية، استحقاق، مدة تقديرية، حالة، روابط مادة/مشروع/هدف |
+| events / event_exceptions | عنوان، نوع، بداية ونهاية أو تاريخ يوم كامل، منطقة زمنية، RRULE، استثناءات وإلغاء حدوث محدد |
+| availability / time_blocks | ساعات متاحة، استراحات، فترة بداية ونهاية، مهمة مرتبطة اختيارية، ثابتة أو قابلة للنقل |
+| goals | فترة سنوية/شهرية/أسبوعية، وحدة قياس، هدف رقمي، تقدم من سجلات واضحة |
+| habits / habit_logs | تكرار، قيمة مستهدفة، تاريخ محلي، قيمة الإنجاز؛ منع التسجيل المكرر |
+| work_sessions | مهمة أو فئة، بداية ونهاية، مدة العمل الفعلية |
+| reminders | عنصر مرتبط، موعد إرسال، قناة، حالة إرسال ومنع التكرار |
 
----
+التواريخ الكاملة تُحفظ كتاريخ دون ساعة؛ اللحظات المحددة تُحفظ UTC مع المنطقة الأصلية. التكرار يُحسب بالوقت المحلي وفي نطاق العرض المطلوب. السنة الأكاديمية لها بداية ونهاية مستقلتان عن السنة الميلادية.
 
-## 4. New Cart System
+التحقق يشمل ترتيب بداية ونهاية الوقت، المدد الإيجابية، حدود السنة، ملكية العلاقات، والحذف المؤكد. الاختبارات المطلوبة تختبر قواعد حقيقية: عزل حسابين، الحفظ وإعادة القراءة، التعارض، التكرار، التوقيت الصيفي ودقة التحليلات.
 
-### Create Cart Store (Zustand)
-Similar to wishlist but with quantity:
-- `items: { product, quantity }[]`
-- `addItem(product, quantity)`
-- `updateQuantity(productId, quantity)`
-- `removeItem(productId)`
-- `getTotal()`
-- `getItemCount()`
-- Persist to localStorage
+## 5. القرارات التي تحتاج موافقتك قبل التنفيذ
+1. إبقاء الموقع العام كما هو وإضافة مساحة الطالب في `/app`؛ دون تحويل الصفحة الحالية إلى لوحة عمل.
+2. استخدام Lovable Cloud للحسابات والحفظ الآمن، مع الاطلاع على تكلفة الاستخدام؛ لم يُفعّل الآن.
+3. هل تحتاجين حفظ بيانات ملف الطالب مثل اسم العرض والمرحلة الدراسية والتفضيلات؟ النموذج المقترح يتضمنها، لكنه يحتاج موافقتك قبل كتابة الدخول.
+4. اللغة عند الإطلاق: العربية، الإنجليزية، أم الاثنتان؟ عند اعتماد العربية تشمل الخطة اتجاه الكتابة من اليمين لليسار.
+5. حدود أول نسخة: تخطيط فردي فقط؛ المشاركة مع المعلمين أو الأهل، ومزامنة تقاويم خارجية، ليست ضمن أول نسخة.
+6. سياسة الأعمار والخصوصية للطلاب القاصرين قبل جمع بياناتهم، وتحديد مدة الاحتفاظ وخيار حذف الحساب.
+7. الإحصاءات والبريد المعروضان حاليًا غير موثقين في المشروع؛ نحتاج القيم والعنوان الحقيقيين، أو موافقة منفصلة لتغييرهما.
 
-### Cart Page (`/cart`)
-| Element | Description |
-|---------|-------------|
-| Product List | Image, title, price, quantity selector, remove button |
-| Cart Summary | Subtotal, estimated shipping, total |
-| Checkout CTA | Button linking to checkout page |
-| Continue Shopping | Secondary link back to products |
-
----
-
-## 5. Checkout Page (`/checkout`)
-
-### Coming Soon Banner
-- Prominent banner: "Online checkout coming soon"
-- Message: "Please contact us to complete your order"
-- Email/phone contact info
-
-### Order Summary
-- List of cart items (read-only)
-- Quantities and prices
-- Subtotal and total
-
-### Contact Form
-- Name, Email, Phone
-- Shipping address fields
-- Order notes/special requests
-- "Submit Order Request" button
-- Form submits and clears cart with success message
-
----
-
-## 6. Header Updates
-
-### Navigation Changes
-| Current | New |
-|---------|-----|
-| Wishlist icon | Keep (but no dedicated page, opens mini drawer or tooltip) |
-| **New:** Cart icon | Bag icon with item count badge |
-
-### Cart Icon Behavior
-- Shows item count
-- Links to `/cart` page
-
----
-
-## 7. Mock Data Strategy
-
-### Product Cards Approach
-- All product cards render with unique mock data (images, names, prices)
-- For demo simplicity, clicking any product goes to a single working detail page
-- This prevents broken pages while showcasing the grid design
-
-### Implementation
-- Keep existing product data
-- First product (Arc Pendant Light) is the "real" linkable product
-- Other cards can link to this same product for the demo
-
----
-
-## 8. Files to Create
-
-| File | Purpose |
-|------|---------|
-| `src/hooks/useCart.ts` | Cart state management with Zustand |
-| `src/pages/Cart.tsx` | Shopping cart page |
-| `src/pages/Checkout.tsx` | Checkout page with form |
-| `src/components/QuantitySelector.tsx` | Reusable +/- quantity control |
-| `src/components/CartIcon.tsx` | Header cart icon with badge |
-
----
-
-## 9. Files to Modify
-
-| File | Changes |
-|------|---------|
-| `src/pages/Index.tsx` | Restructure sections per new layout |
-| `src/pages/Products.tsx` | Add filters and sorting UI |
-| `src/pages/ProductDetail.tsx` | Add quantity selector, change CTA to "Add to Bag" |
-| `src/components/Header.tsx` | Add cart icon, update wishlist behavior |
-| `src/components/Footer.tsx` | Remove wishlist link, keep rest |
-| `src/App.tsx` | Add `/cart` and `/checkout` routes, remove `/wishlist` |
-| `src/components/Layout.tsx` | Fix TypeScript error with Framer Motion variants |
-
----
-
-## 10. Files to Delete
-
-| File | Reason |
-|------|--------|
-| `src/pages/Wishlist.tsx` | User requested removal |
-
----
-
-## Technical Details
-
-### Fix Build Error (Layout.tsx)
-The Framer Motion `ease` array needs to be typed as a tuple:
-```typescript
-ease: [0.25, 0.46, 0.45, 0.94] as const
-```
-
-### Cart Store Structure
-```typescript
-interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
-interface CartState {
-  items: CartItem[];
-  addItem: (product: Product, quantity: number) => void;
-  updateQuantity: (productId: string, quantity: number) => void;
-  removeItem: (productId: string) => void;
-  clearCart: () => void;
-  getSubtotal: () => number;
-  getItemCount: () => number;
-}
-```
-
-### Quantity Selector Component
-- Shows current quantity (default: 1)
-- Minus button (disabled at 1)
-- Plus button (max 10)
-- Clean, minimal styling matching brand
-
-### Sorting Implementation
-- URL parameter based (`?sort=price-asc`)
-- Combined with existing collection filter
-- `useMemo` for filtered and sorted products
-
----
-
-## Visual Design Notes
-
-- Maintain warm, Scandinavian aesthetic throughout
-- Cart and checkout pages use same cream/neutral tones
-- No dark theming - keep light, warm palette
-- Generous whitespace on cart/checkout pages
-- Form inputs match existing inquiry form styling
-
+**التوصية:** الموافقة أولًا على الأساس وحدود المرحلة 1، ثم اختبار طالب يُنشئ خطة ويحفظها ويقرأها مجددًا، قبل الانتقال للمخطط الكامل؛ الذكاء الاصطناعي والتثبيت يأتيان بعد موثوقية البيانات والجدولة.
